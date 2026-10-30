@@ -1,0 +1,203 @@
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#190d17">
+<title>خليني ذكرى جميلة عندك ❤️</title>
+
+<style>
+*{box-sizing:border-box}
+body{
+ margin:0;
+ background:linear-gradient(145deg,#190d17,#3a172d,#170d19);
+ color:#fff;
+ font-family:Arial,sans-serif;
+ overflow-x:hidden;
+}
+.intro{
+ position:fixed;inset:0;z-index:10;
+ display:flex;flex-direction:column;
+ justify-content:center;align-items:center;
+ text-align:center;padding:25px;
+ background:radial-gradient(circle,#57243f,#190d17 75%);
+ transition:opacity .8s;
+}
+.intro h1{color:#ffd3e4;font-size:30px}
+.intro p{color:#f5c4d7;line-height:2}
+button{
+ border:1px solid #f4a9c7;
+ background:#e98bad;color:#391526;
+ padding:14px 30px;border-radius:30px;
+ font-size:17px;font-weight:bold;
+ cursor:pointer;
+}
+header{text-align:center;padding:45px 15px 20px}
+header h1{color:#ffc5db;font-size:30px}
+header p{color:#e8b4ca;line-height:2}
+.music{
+ display:block;margin:15px auto;
+ background:#f3b1ca;color:#351526;
+}
+.gallery{
+ display:grid;
+ grid-template-columns:repeat(2,minmax(0,1fr));
+ gap:12px;padding:15px;
+ max-width:850px;margin:auto;
+}
+.photo{
+ overflow:hidden;border-radius:17px;
+ border:1px solid #b66b8a;
+ box-shadow:0 5px 22px #0008;
+}
+.photo img{
+ width:100%;height:240px;
+ object-fit:cover;display:block;
+ transition:transform .5s;
+}
+.photo img:active{transform:scale(1.05)}
+footer{
+ text-align:center;padding:40px 15px 60px;
+ color:#ffc5db;line-height:2;font-size:20px;
+}
+.heart{
+ position:fixed;bottom:-30px;
+ color:#ff9cbe;pointer-events:none;
+ animation:float 7s linear forwards;
+ z-index:2;
+}
+@keyframes float{
+ to{transform:translateY(-110vh) rotate(360deg);opacity:0}
+}
+.viewer{
+ display:none;position:fixed;inset:0;
+ background:#000e;z-index:20;
+ justify-content:center;align-items:center;
+ padding:15px;
+}
+.viewer img{max-width:100%;max-height:85vh;border-radius:15px}
+.viewer span{
+ position:absolute;top:20px;left:25px;
+ font-size:35px;cursor:pointer;
+}
+@media(max-width:480px){
+ .photo img{height:190px}
+ header h1{font-size:25px}
+}
+</style>
+</head>
+
+<body>
+
+<audio id="music" loop preload="auto">
+ <source src="https://raw.githubusercontent.com/empiresilver39-afk/Song/refs/heads/main/04.Kelma.mp3" type="audio/mpeg">
+</audio>
+
+<div class="intro" id="intro">
+ <h1>خليني ذكرى جميلة عندك ❤️</h1>
+ <p>
+ في حكايات مش بتخلص بمجرد ما اللحظة تعدي...<br>
+ وفي صور بتفضل شايلة أجمل إحساس.
+ </p>
+ <button onclick="start()">افتح ذكرياتنا ❤️</button>
+</div>
+
+<header>
+ <h1>كل صورة حكاية ❤️</h1>
+ <p>
+ شوية لحظات حلوة...<br>
+ وشخص وجوده بيخلي كل حاجة أجمل.
+ </p>
+ <button class="music" onclick="toggleMusic()" id="musicBtn">
+ ♫ تشغيل الأغنية
+ </button>
+</header>
+
+<main class="gallery" id="gallery"></main>
+
+<footer>
+ <div style="font-size:35px">❤️</div>
+ <p>
+ مهما عدّت الأيام<br>
+ هتفضل الذكريات دي ليها مكان خاص.
+ </p>
+ <div>خليني ذكرى جميلة عندك ❤️</div>
+</footer>
+
+<div class="viewer" id="viewer" onclick="closeViewer()">
+ <span>×</span>
+ <img id="bigImage" src="" alt="صورة من الذكريات">
+</div>
+
+<script>
+const photos = [
+ "099bf59b-5ba6-4d01-9422-079b83a7c536.jpeg",
+ "25fc5d4f-6b1c-4bd8-8f3d-beb4a4f4d713.jpeg",
+ "2b42b800-eb58-418b-b78d-1d2a08f66cc6.jpeg",
+ "5d969111-642f-42f4-ba24-8ecd8a86568c.jpeg",
+ "b391e82d-1803-4920-a4bd-038b49ce5110.jpeg",
+ "c1574017-e4b7-4ea0-92d3-d1e1c2549147.jpeg",
+ "c62fa538-6a34-4d1d-9bf9-f5d8f99ede7d.jpeg"
+];
+
+const base = "https://raw.githubusercontent.com/empiresilver39-afk/Moktam/main/";
+
+const gallery = document.getElementById("gallery");
+
+photos.forEach((photo,index)=>{
+ const div=document.createElement("div");
+ div.className="photo";
+ const img=document.createElement("img");
+ img.src=base+photo;
+ img.loading="lazy";
+ img.alt="ذكرى جميلة "+(index+1);
+ img.onclick=()=>{
+  document.getElementById("bigImage").src=img.src;
+  document.getElementById("viewer").style.display="flex";
+ };
+ div.appendChild(img);
+ gallery.appendChild(div);
+});
+
+function closeViewer(){
+ document.getElementById("viewer").style.display="none";
+}
+
+const music=document.getElementById("music");
+
+function start(){
+ music.play().then(()=>{
+  document.getElementById("musicBtn").innerText="♫ إيقاف الأغنية";
+ }).catch(()=>{
+  document.getElementById("musicBtn").innerText="♫ تشغيل الأغنية";
+ });
+ document.getElementById("intro").style.opacity="0";
+ setTimeout(()=>{
+  document.getElementById("intro").style.display="none";
+ },800);
+}
+
+function toggleMusic(){
+ if(music.paused){
+  music.play();
+  document.getElementById("musicBtn").innerText="♫ إيقاف الأغنية";
+ }else{
+  music.pause();
+  document.getElementById("musicBtn").innerText="♫ تشغيل الأغنية";
+ }
+}
+
+setInterval(()=>{
+ const heart=document.createElement("div");
+ heart.className="heart";
+ heart.innerHTML="❤";
+ heart.style.left=Math.random()*100+"%";
+ heart.style.fontSize=(15+Math.random()*20)+"px";
+ document.body.appendChild(heart);
+ setTimeout(()=>heart.remove(),7000);
+},650);
+</script>
+
+</body>
+</html>
